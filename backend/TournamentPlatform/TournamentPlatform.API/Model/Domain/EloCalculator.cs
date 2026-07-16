@@ -10,7 +10,7 @@ namespace TournamentPlatform.API.Model.Domain
             return 1.0 / (1.0 + Math.Pow(10.0, (rating2 - rating1) / 400.0));
         }
 
-        public void CalculateNewRatings(IParticipant participant1, IParticipant participant2, double outcome)
+        public void CalculateNewRatings(Participant participant1, Participant participant2, double outcome)
         {
             double expected1 = CalculateExpectedScore(participant1.Rating, participant2.Rating);
             double expected2 = CalculateExpectedScore(participant2.Rating, participant1.Rating);
