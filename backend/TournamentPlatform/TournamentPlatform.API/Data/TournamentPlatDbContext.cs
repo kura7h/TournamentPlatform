@@ -24,15 +24,19 @@ namespace TournamentPlatform.API.Data
             modelBuilder.Entity<Match>()
                 .HasOne(m => m.Participant1)
                 .WithMany()
+                .HasForeignKey(m => m.Participant1Id)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Match>()
                 .HasOne(m => m.Participant2)
                 .WithMany()
+                .HasForeignKey(m => m.Participant2Id)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Match>()
                 .HasOne(m => m.Winner)
                 .WithMany()
+                .HasForeignKey(m => m.WinnerId)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

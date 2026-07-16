@@ -18,7 +18,7 @@ namespace TournamentPlatform.API.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Participant1Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Participant2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -100,7 +100,7 @@ namespace TournamentPlatform.API.Migrations
                 column: "Participant1Id",
                 principalTable: "Participant",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Matches_Participant_Participant2Id",
@@ -108,7 +108,7 @@ namespace TournamentPlatform.API.Migrations
                 column: "Participant2Id",
                 principalTable: "Participant",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Matches_Participant_WinnerId",
@@ -116,7 +116,7 @@ namespace TournamentPlatform.API.Migrations
                 column: "WinnerId",
                 principalTable: "Participant",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Matches_Tournaments_TournamentId",

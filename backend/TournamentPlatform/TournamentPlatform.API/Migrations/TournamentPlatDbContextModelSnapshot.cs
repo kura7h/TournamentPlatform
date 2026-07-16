@@ -37,7 +37,7 @@ namespace TournamentPlatform.API.Migrations
                     b.Property<Guid?>("TournamentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("WinnerId")
+                    b.Property<Guid?>("WinnerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -129,13 +129,13 @@ namespace TournamentPlatform.API.Migrations
                     b.HasOne("TournamentPlatform.API.Model.Domain.Participant", "Participant1")
                         .WithMany()
                         .HasForeignKey("Participant1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TournamentPlatform.API.Model.Domain.Participant", "Participant2")
                         .WithMany()
                         .HasForeignKey("Participant2Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TournamentPlatform.API.Model.Domain.Tournament", null)
@@ -145,8 +145,7 @@ namespace TournamentPlatform.API.Migrations
                     b.HasOne("TournamentPlatform.API.Model.Domain.Participant", "Winner")
                         .WithMany()
                         .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Participant1");
 
