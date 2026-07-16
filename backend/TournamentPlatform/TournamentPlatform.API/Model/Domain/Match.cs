@@ -6,13 +6,20 @@ namespace TournamentPlatform.API.Model.Domain
     {
         public Guid Id { get; set; }
 
-        public IParticipant Participant1 { get; set; }
+        public Guid Participant1Id { get; set; }
 
-        public IParticipant Participant2 { get; set; }
+        public Guid Participant2Id { get; set; }
 
-        public IParticipant Winner { get; set; }
+        public Guid? WinnerId { get; set; }
 
-        public void MatchResult(IParticipant winner)
+
+        public Participant Participant1 { get; set; }
+
+        public Participant Participant2 { get; set; }
+
+        public Participant? Winner { get; set; }
+
+        public void MatchResult(Participant winner)
         {
             throw new NotImplementedException();
         }

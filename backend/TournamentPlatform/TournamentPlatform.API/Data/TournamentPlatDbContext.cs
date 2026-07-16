@@ -8,7 +8,7 @@ namespace TournamentPlatform.API.Data
         public TournamentPlatDbContext(DbContextOptions<TournamentPlatDbContext> options)
             : base(options)
         {
-            
+
         }
 
         public DbSet<Player> Players { get; set; }
@@ -16,5 +16,27 @@ namespace TournamentPlatform.API.Data
         public DbSet<Match> Matches { get; set; }
 
         public DbSet<Tournament> Tournaments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // Configure the relationships and constraints here if needed
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Participant1)
+                .WithMany()
+                .HasForeignKey(m => m.Participant1Id)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Participant2)
+                .WithMany()
+                .HasForeignKey(m => m.Participant2Id)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Winner)
+                .WithMany()
+                .HasForeignKey(m => m.WinnerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+        }
     }
 }
