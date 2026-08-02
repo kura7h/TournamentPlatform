@@ -6,13 +6,6 @@ namespace TournamentPlatform.API.Model.Domain
     {
         public Guid Id { get; set; }
 
-        public Guid Participant1Id { get; set; }
-
-        public Guid Participant2Id { get; set; }
-
-        public Guid? WinnerId { get; set; }
-
-
         public Participant Participant1 { get; set; }
 
         public Participant Participant2 { get; set; }
