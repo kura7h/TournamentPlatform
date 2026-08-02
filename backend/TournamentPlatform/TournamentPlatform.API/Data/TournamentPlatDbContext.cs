@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TournamentPlatform.API.Model.Domain;
+using TournamentPlatform.API.Model.Persistence.Entities;
 
 namespace TournamentPlatform.API.Data
 {
@@ -11,32 +11,31 @@ namespace TournamentPlatform.API.Data
 
         }
 
-        public DbSet<Player> Players { get; set; }
+        public DbSet<ParticipantEntity> Participants { get; set; }
 
-        public DbSet<Match> Matches { get; set; }
+        public DbSet<MatchEntity> Matches { get; set; }
 
-        public DbSet<Tournament> Tournaments { get; set; }
+        public DbSet<TournamentEntity> Tournaments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Configure the relationships and constraints here if needed
-            modelBuilder.Entity<Match>()
+
+            modelBuilder.Entity<MatchEntity>()
                 .HasOne(m => m.Participant1)
                 .WithMany()
                 .HasForeignKey(m => m.Participant1Id)
                 .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Match>()
+            modelBuilder.Entity<MatchEntity>()
                 .HasOne(m => m.Participant2)
                 .WithMany()
                 .HasForeignKey(m => m.Participant2Id)
                 .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Match>()
+            modelBuilder.Entity<MatchEntity>()
                 .HasOne(m => m.Winner)
                 .WithMany()
                 .HasForeignKey(m => m.WinnerId)
                 .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

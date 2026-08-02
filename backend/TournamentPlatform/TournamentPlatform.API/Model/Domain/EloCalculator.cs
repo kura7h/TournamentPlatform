@@ -5,11 +5,6 @@ namespace TournamentPlatform.API.Model.Domain
 {
     public class EloCalculator : IRatingCalculator
     {
-        public double CalculateExpectedScore(double rating1, double rating2)
-        {
-            return 1.0 / (1.0 + Math.Pow(10.0, (rating2 - rating1) / 400.0));
-        }
-
         public void CalculateNewRatings(Participant participant1, Participant participant2, double outcome)
         {
             double expected1 = CalculateExpectedScore(participant1.Rating, participant2.Rating);
@@ -22,6 +17,11 @@ namespace TournamentPlatform.API.Model.Domain
 
             participant1.Rating = newRating1;
             participant2.Rating = newRating2;
+        }
+
+        public double CalculateExpectedScore(double rating1, double rating2)
+        {
+            return 1.0 / (1.0 + Math.Pow(10.0, (rating2 - rating1) / 400.0));
         }
     }
 }
