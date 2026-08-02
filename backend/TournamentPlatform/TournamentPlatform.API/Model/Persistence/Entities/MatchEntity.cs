@@ -13,10 +13,10 @@ namespace TournamentPlatform.API.Model.Persistence.Entities
         public Guid? WinnerId { get; set; }
 
 
-        public Participant Participant1 { get; set; }
+        public ParticipantEntity Participant1 { get; set; }
 
-        public Participant Participant2 { get; set; }
+        public ParticipantEntity Participant2 { get; set; }
 
-        public Participant? Winner { get; set; }
+        public ParticipantEntity? Winner { get; set; }
     }
 }

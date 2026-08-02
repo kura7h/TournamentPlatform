@@ -16,10 +16,10 @@ namespace TournamentPlatform.API.Model.Persistence.Entities
         public string Name { get; set; }
         public TournamentType Type { get; set; }
 
-        public List<Participant> Participants { get; set; }
-        public List<Match> Matches { get; set; }
+        public List<ParticipantEntity> Participants { get; set; }
+        public List<MatchEntity> Matches { get; set; }
 
         public Guid? WinnerId { get; set; }
-        public Participant Winner { get; set; }
+        public ParticipantEntity Winner { get; set; }
     }
 }
