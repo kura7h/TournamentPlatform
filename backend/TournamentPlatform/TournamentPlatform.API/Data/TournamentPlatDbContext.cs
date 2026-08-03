@@ -11,8 +11,6 @@ namespace TournamentPlatform.API.Data
 
         }
 
-        public DbSet<ParticipantEntity> Participants { get; set; }
-
         public DbSet<MatchEntity> Matches { get; set; }
 
         public DbSet<TournamentEntity> Tournaments { get; set; }

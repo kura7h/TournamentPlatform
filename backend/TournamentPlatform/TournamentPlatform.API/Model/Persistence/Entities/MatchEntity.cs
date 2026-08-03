@@ -12,6 +12,8 @@ namespace TournamentPlatform.API.Model.Persistence.Entities
 
         public Guid? WinnerId { get; set; }
 
+        public Guid TournamentId { get; set; }
+
 
         public ParticipantEntity Participant1 { get; set; }
 

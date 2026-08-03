@@ -14,6 +14,6 @@
 
         public int Ties { get; set; }
 
-        public string Type { get; set; } 
+        public Guid TournamentId { get; set; }
     }
 }
