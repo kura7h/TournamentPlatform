@@ -12,8 +12,6 @@ namespace TournamentPlatform.API.Model.Domain
 
         public Participant? Winner { get; set; }
 
-
-
         public void MatchResult(Participant winner)
         {
             throw new NotImplementedException();
