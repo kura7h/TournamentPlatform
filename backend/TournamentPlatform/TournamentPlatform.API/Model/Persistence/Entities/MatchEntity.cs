@@ -20,5 +20,7 @@ namespace TournamentPlatform.API.Model.Persistence.Entities
         public ParticipantEntity Participant2 { get; set; }
 
         public ParticipantEntity? Winner { get; set; }
+
+        public TournamentEntity Tournament { get; set; }
     }
 }

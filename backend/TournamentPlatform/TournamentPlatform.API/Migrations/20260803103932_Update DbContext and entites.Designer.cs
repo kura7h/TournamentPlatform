@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentPlatform.API.Data;
 
@@ -11,9 +12,11 @@ using TournamentPlatform.API.Data;
 namespace TournamentPlatform.API.Migrations
 {
     [DbContext(typeof(TournamentPlatDbContext))]
-    partial class TournamentPlatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260803103932_Update DbContext and entites")]
+    partial class UpdateDbContextandentites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
