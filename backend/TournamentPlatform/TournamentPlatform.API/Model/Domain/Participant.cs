@@ -2,7 +2,7 @@
 
 namespace TournamentPlatform.API.Model.Domain
 {
-    public abstract class Participant : IParticipant
+    public class Participant : IParticipant
     {
         public Guid Id { get; set; }
 
@@ -11,8 +11,6 @@ namespace TournamentPlatform.API.Model.Domain
         public int Rating { get; set; }
 
         public int Wins { get; set; }
-
-        public int Losses { get; set; }
 
         public int Ties { get; set; }
     }

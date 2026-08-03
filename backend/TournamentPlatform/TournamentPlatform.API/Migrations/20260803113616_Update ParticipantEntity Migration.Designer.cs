@@ -12,8 +12,8 @@ using TournamentPlatform.API.Data;
 namespace TournamentPlatform.API.Migrations
 {
     [DbContext(typeof(TournamentPlatDbContext))]
-    [Migration("20260802175408_Entities Db Migration")]
-    partial class EntitiesDbMigration
+    [Migration("20260803113616_Update ParticipantEntity Migration")]
+    partial class UpdateParticipantEntityMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace TournamentPlatform.API.Migrations
                     b.Property<Guid>("Participant2Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TournamentEntityId")
+                    b.Property<Guid>("TournamentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("WinnerId")
@@ -49,7 +49,7 @@ namespace TournamentPlatform.API.Migrations
 
                     b.HasIndex("Participant2Id");
 
-                    b.HasIndex("TournamentEntityId");
+                    b.HasIndex("TournamentId");
 
                     b.HasIndex("WinnerId");
 
@@ -62,9 +62,6 @@ namespace TournamentPlatform.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Losses")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,21 +72,17 @@ namespace TournamentPlatform.API.Migrations
                     b.Property<int>("Ties")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TournamentEntityId")
+                    b.Property<Guid>("TournamentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TournamentEntityId");
+                    b.HasIndex("TournamentId");
 
-                    b.ToTable("Participants");
+                    b.ToTable("ParticipantEntity");
                 });
 
             modelBuilder.Entity("TournamentPlatform.API.Model.Persistence.Entities.TournamentEntity", b =>
@@ -129,9 +122,11 @@ namespace TournamentPlatform.API.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("TournamentPlatform.API.Model.Persistence.Entities.TournamentEntity", null)
+                    b.HasOne("TournamentPlatform.API.Model.Persistence.Entities.TournamentEntity", "Tournament")
                         .WithMany("Matches")
-                        .HasForeignKey("TournamentEntityId");
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TournamentPlatform.API.Model.Persistence.Entities.ParticipantEntity", "Winner")
                         .WithMany()
@@ -142,21 +137,28 @@ namespace TournamentPlatform.API.Migrations
 
                     b.Navigation("Participant2");
 
+                    b.Navigation("Tournament");
+
                     b.Navigation("Winner");
                 });
 
             modelBuilder.Entity("TournamentPlatform.API.Model.Persistence.Entities.ParticipantEntity", b =>
                 {
-                    b.HasOne("TournamentPlatform.API.Model.Persistence.Entities.TournamentEntity", null)
+                    b.HasOne("TournamentPlatform.API.Model.Persistence.Entities.TournamentEntity", "Tournament")
                         .WithMany("Participants")
-                        .HasForeignKey("TournamentEntityId");
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tournament");
                 });
 
             modelBuilder.Entity("TournamentPlatform.API.Model.Persistence.Entities.TournamentEntity", b =>
                 {
                     b.HasOne("TournamentPlatform.API.Model.Persistence.Entities.ParticipantEntity", "Winner")
                         .WithMany()
-                        .HasForeignKey("WinnerId");
+                        .HasForeignKey("WinnerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Winner");
                 });

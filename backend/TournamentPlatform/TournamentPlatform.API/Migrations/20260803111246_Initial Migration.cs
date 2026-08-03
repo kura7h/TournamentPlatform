@@ -19,7 +19,7 @@ namespace TournamentPlatform.API.Migrations
                     Participant1Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Participant2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,21 +27,18 @@ namespace TournamentPlatform.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Participant",
+                name: "ParticipantEntity",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Wins = table.Column<int>(type: "int", nullable: false),
-                    Losses = table.Column<int>(type: "int", nullable: false),
-                    Ties = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TournamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participant", x => x.Id);
+                    table.PrimaryKey("PK_ParticipantEntity", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,17 +48,17 @@ namespace TournamentPlatform.API.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    WinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    WinnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tournaments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tournaments_Participant_WinnerId",
+                        name: "FK_Tournaments_ParticipantEntity_WinnerId",
                         column: x => x.WinnerId,
-                        principalTable: "Participant",
+                        principalTable: "ParticipantEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -85,8 +82,8 @@ namespace TournamentPlatform.API.Migrations
                 column: "WinnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participant_TournamentId",
-                table: "Participant",
+                name: "IX_ParticipantEntity_TournamentId",
+                table: "ParticipantEntity",
                 column: "TournamentId");
 
             migrationBuilder.CreateIndex(
@@ -95,26 +92,26 @@ namespace TournamentPlatform.API.Migrations
                 column: "WinnerId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Matches_Participant_Participant1Id",
+                name: "FK_Matches_ParticipantEntity_Participant1Id",
                 table: "Matches",
                 column: "Participant1Id",
-                principalTable: "Participant",
+                principalTable: "ParticipantEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Matches_Participant_Participant2Id",
+                name: "FK_Matches_ParticipantEntity_Participant2Id",
                 table: "Matches",
                 column: "Participant2Id",
-                principalTable: "Participant",
+                principalTable: "ParticipantEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Matches_Participant_WinnerId",
+                name: "FK_Matches_ParticipantEntity_WinnerId",
                 table: "Matches",
                 column: "WinnerId",
-                principalTable: "Participant",
+                principalTable: "ParticipantEntity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -123,28 +120,30 @@ namespace TournamentPlatform.API.Migrations
                 table: "Matches",
                 column: "TournamentId",
                 principalTable: "Tournaments",
-                principalColumn: "Id");
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Participant_Tournaments_TournamentId",
-                table: "Participant",
+                name: "FK_ParticipantEntity_Tournaments_TournamentId",
+                table: "ParticipantEntity",
                 column: "TournamentId",
                 principalTable: "Tournaments",
-                principalColumn: "Id");
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tournaments_Participant_WinnerId",
+                name: "FK_Tournaments_ParticipantEntity_WinnerId",
                 table: "Tournaments");
 
             migrationBuilder.DropTable(
                 name: "Matches");
 
             migrationBuilder.DropTable(
-                name: "Participant");
+                name: "ParticipantEntity");
 
             migrationBuilder.DropTable(
                 name: "Tournaments");
