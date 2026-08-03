@@ -10,6 +10,8 @@
 
         public int Wins { get; set; }
 
+        public int Ties { get; set; }
+
         public Guid TournamentId { get; set; }
 
         public TournamentEntity Tournament { get; set; }
