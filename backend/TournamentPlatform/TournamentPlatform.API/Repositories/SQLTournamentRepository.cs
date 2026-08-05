@@ -56,12 +56,21 @@ namespace TournamentPlatform.API.Repositories
             _context.Tournaments.Add(entity);
             await _context.SaveChangesAsync();
 
-            return tournament;
+            return _mapper.Map<Tournament>(entity);
         }
 
         public async Task<Tournament?> UpdateAsync(Guid id, Tournament tournament)
         {
-            var existingTournamentEntity = await _context.Tournaments.FindAsync(id);
+            var existingTournamentEntity = await _context.Tournaments
+                .Include(t => t.Participants)
+                .Include(t => t.Winner)
+                .Include(t => t.Matches)
+                    .ThenInclude(m => m.Participant1)
+                .Include(t => t.Matches)
+                    .ThenInclude(m => m.Participant2)
+                .Include(t => t.Matches)
+                    .ThenInclude(m => m.Winner)
+                .FirstOrDefaultAsync(t => t.Id == id); ;
 
             if (existingTournamentEntity == null)
             {
@@ -71,6 +80,7 @@ namespace TournamentPlatform.API.Repositories
             existingTournamentEntity.Name = tournament.Name;
             existingTournamentEntity.Participants = _mapper.Map<List<ParticipantEntity>>(tournament.Participants);
             existingTournamentEntity.Matches = _mapper.Map<List<MatchEntity>>(tournament.Matches);
+            existingTournamentEntity.WinnerId = tournament.Winner?.Id;
 
             await _context.SaveChangesAsync();
 
