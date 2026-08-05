@@ -13,7 +13,12 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<TournamentPlatDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TournamentPlatformConnectionString")));
 
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ParticipantMappingProfile>());
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<ParticipantMappingProfile>();
+    cfg.AddProfile<TournamentMappingProfile>();
+    cfg.AddProfile<MatchMappingProfile>();
+});
 
 var app = builder.Build();
 

@@ -12,12 +12,15 @@ namespace TournamentPlatform.API.Mappings
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Participants, opt => opt.MapFrom(src => src.Participants))
-                .ForMember(dest => dest.Matches, opt => opt.MapFrom(src => src.Matches));
+                .ForMember(dest => dest.Matches, opt => opt.MapFrom(src => src.Matches))
+                .ForMember(dest => dest.Winner, opt => opt.MapFrom(src => src.Winner));
+
             CreateMap<Tournament, TournamentEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Participants, opt => opt.MapFrom(src => src.Participants))
-                .ForMember(dest => dest.Matches, opt => opt.MapFrom(src => src.Matches));
+                .ForMember(dest => dest.Matches, opt => opt.MapFrom(src => src.Matches))
+                .ForMember(dest => dest.Winner, opt => opt.MapFrom(src => src.Winner));
         }
     }
 }
