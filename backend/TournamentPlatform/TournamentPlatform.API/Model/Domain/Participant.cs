@@ -13,5 +13,10 @@ namespace TournamentPlatform.API.Model.Domain
         public int Wins { get; set; }
 
         public int Ties { get; set; }
+
+        public Participant()
+        {
+            
+        }
     }
 }
