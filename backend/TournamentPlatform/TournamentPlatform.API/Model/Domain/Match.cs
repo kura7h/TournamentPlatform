@@ -12,6 +12,19 @@ namespace TournamentPlatform.API.Model.Domain
 
         public Participant? Winner { get; set; }
 
+        public int Round { get; set; }
+
+        public int PositionInRound { get; set; }
+
+        public Match(Participant participant1, Participant participant2, int round, int positionInRound)
+        {
+            Id = Guid.NewGuid();
+            Participant1 = participant1;
+            Participant2 = participant2;
+            Round = round;
+            PositionInRound = positionInRound;
+        }
+
         public void MatchResult(Participant winner)
         {
             throw new NotImplementedException();
