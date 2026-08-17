@@ -23,13 +23,17 @@ namespace TournamentPlatform.API.Model.Domain
                 matches.Add(match);
             }
 
-            for(int i = 1; i < roundsCount; i++)
+            int currentRoundMatchesCount = participants.Count / 2;
+
+            for (int i = 1; i < roundsCount; i++)
             {
-                for (int j = 0; j < participants.Count; j += 2)
+                for (int j = 0; j < currentRoundMatchesCount; j += 2)
                 {
                     Match match = new Match(null, null, i + 1, j / 2 + 1);
                     matches.Add(match);
                 }
+
+                currentRoundMatchesCount /= 2;
             }
 
             return matches;
