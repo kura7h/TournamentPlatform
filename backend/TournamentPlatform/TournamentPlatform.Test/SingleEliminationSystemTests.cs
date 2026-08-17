@@ -91,5 +91,110 @@ namespace TournamentPlatform.Test
             //Assert
             Assert.Equal(expected, firstRoundCount);
         }
+
+        [Theory]
+        [InlineData(2, 0)]
+        [InlineData(8, 2)]
+        [InlineData(16, 4)]
+        [InlineData(32, 8)]
+        [InlineData(64, 16)]
+        public void GenerateMatches_NumberOfMatchesSecondRound_ReturnsCorrectAmount(int input, int expected)
+        {
+            //Arrange
+            List<Participant> participants = new List<Participant>();
+
+            for (int i = 0; i < input; i++)
+            {
+                participants.Add(new Participant());
+            }
+
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            var matches = system.GenerateMatches(participants);
+
+            int firstRoundCount = 0;
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].Round == 2)
+                {
+                    firstRoundCount++;
+                }
+            }
+
+            //Assert
+            Assert.Equal(expected, firstRoundCount);
+        }
+
+        [Theory]
+        [InlineData(2, 0)]
+        [InlineData(8, 1)]
+        [InlineData(16, 2)]
+        [InlineData(32, 4)]
+        [InlineData(64, 8)]
+        public void GenerateMatches_NumberOfMatchesThirdRound_ReturnsCorrectAmount(int input, int expected)
+        {
+            //Arrange
+            List<Participant> participants = new List<Participant>();
+
+            for (int i = 0; i < input; i++)
+            {
+                participants.Add(new Participant());
+            }
+
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            var matches = system.GenerateMatches(participants);
+
+            int firstRoundCount = 0;
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].Round == 3)
+                {
+                    firstRoundCount++;
+                }
+            }
+
+            //Assert
+            Assert.Equal(expected, firstRoundCount);
+        }
+
+        [Theory]
+        [InlineData(2, 0)]
+        [InlineData(8, 0)]
+        [InlineData(16, 1)]
+        [InlineData(32, 2)]
+        [InlineData(64, 4)]
+        public void GenerateMatches_NumberOfMatchesFourthRound_ReturnsCorrectAmount(int input, int expected)
+        {
+            //Arrange
+            List<Participant> participants = new List<Participant>();
+
+            for (int i = 0; i < input; i++)
+            {
+                participants.Add(new Participant());
+            }
+
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            var matches = system.GenerateMatches(participants);
+
+            int firstRoundCount = 0;
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].Round == 3)
+                {
+                    firstRoundCount++;
+                }
+            }
+
+            //Assert
+            Assert.Equal(expected, firstRoundCount);
+        }
     }
 }
