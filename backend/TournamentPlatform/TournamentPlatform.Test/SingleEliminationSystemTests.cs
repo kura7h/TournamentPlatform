@@ -33,5 +33,28 @@ namespace TournamentPlatform.Test
             //Assert
             Assert.Equal(expected, matches.Count);
         }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(6)]
+        [InlineData(24)]
+        [InlineData(36)]
+        [InlineData(48)]
+        public void GenerateMatches_NumberOfParticipantsNotPowerOfTwo_ThrowsArgumentException(int input)
+        {
+            //Arrange
+            List<Participant> participants = new List<Participant>();
+
+            for (int i = 0; i < input; i++)
+            {
+                participants.Add(new Participant());
+            }
+
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act & Assert
+            Assert.Throws<ArgumentException>(() => system.GenerateMatches(participants));
+        }
     }
 }
