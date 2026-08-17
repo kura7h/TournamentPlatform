@@ -56,5 +56,40 @@ namespace TournamentPlatform.Test
             //Act & Assert
             Assert.Throws<ArgumentException>(() => system.GenerateMatches(participants));
         }
+
+        [Theory]
+        [InlineData(2, 1)]
+        [InlineData(8, 4)]
+        [InlineData(16, 8)]
+        [InlineData(32, 16)]
+        [InlineData(64, 32)]
+        public void GenerateMatches_NumberOfMatchesFirstRound_ReturnsCorrectAmount(int input, int expected)
+        {
+            //Arrange
+            List<Participant> participants = new List<Participant>();
+
+            for (int i = 0; i < input; i++)
+            {
+                participants.Add(new Participant());
+            }
+
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            var matches = system.GenerateMatches(participants);
+
+            int firstRoundCount = 0;
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].Round == 1)
+                {
+                    firstRoundCount++;
+                }
+            }
+
+            //Assert
+            Assert.Equal(expected, firstRoundCount);
+        }
     }
 }
