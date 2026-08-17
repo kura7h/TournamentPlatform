@@ -187,7 +187,7 @@ namespace TournamentPlatform.Test
 
             for (int i = 0; i < matches.Count; i++)
             {
-                if (matches[i].Round == 3)
+                if (matches[i].Round == 4)
                 {
                     firstRoundCount++;
                 }
