@@ -38,5 +38,22 @@ namespace TournamentPlatform.API.Model.Domain
 
             return matches;
         }
+
+        public int GetPreviousPowerOfTwo(int number)
+        {
+            if (number < 1)
+            {
+                throw new ArgumentException("Number must be greater than 0.");
+            }
+
+            int power = 1;
+
+            while (power <= number)
+            {
+                power *= 2;
+            }
+
+            return power / 2;
+        }
     }
 }

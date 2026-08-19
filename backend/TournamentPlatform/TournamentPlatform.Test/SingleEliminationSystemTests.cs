@@ -175,6 +175,25 @@ namespace TournamentPlatform.Test
         }
 
         [Theory]
+        [InlineData(3, 2)]
+        [InlineData(5, 4)]
+        [InlineData(6, 4)]
+        [InlineData(24, 16)]
+        [InlineData(36, 32)]
+        [InlineData(48, 32)]
+        public void GetPreviousPowerOfTwo_Number_ReturnsPreviousPowerOfTwo(int input, int expected)
+        {
+            //Arrange
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            int result = system.GetPreviousPowerOfTwo(input);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
         [InlineData(3)]
         [InlineData(5)]
         [InlineData(6)]
