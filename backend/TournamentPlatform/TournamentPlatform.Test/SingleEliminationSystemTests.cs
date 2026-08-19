@@ -175,32 +175,13 @@ namespace TournamentPlatform.Test
         }
 
         [Theory]
-        [InlineData(3, 2)]
-        [InlineData(5, 4)]
-        [InlineData(6, 4)]
-        [InlineData(24, 16)]
-        [InlineData(36, 32)]
-        [InlineData(48, 32)]
-        public void GetPreviousPowerOfTwo_Number_ReturnsPreviousPowerOfTwo(int input, int expected)
-        {
-            //Arrange
-            SingleEliminationSystem system = new SingleEliminationSystem();
-
-            //Act
-            int result = system.GetPreviousPowerOfTwo(input);
-
-            //Assert
-            Assert.Equal(expected, result);
-        }
-
-        [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(6)]
-        [InlineData(24)]
-        [InlineData(36)]
-        [InlineData(48)]
-        public void GenerateMatches_NumberOfParticipantsNotPowerOfTwo_ThrowsArgumentException(int input)
+        [InlineData(3, 1)]
+        [InlineData(5, 2)]
+        [InlineData(6, 2)]
+        [InlineData(24, 8)]
+        [InlineData(36, 4)]
+        [InlineData(48, 16)]
+        public void GenerateMatches_NumberOfParticipantsNotPowerOfTwoQualificationRound_ReturnsCorrectMatchesAmount(int input, int expected)
         {
             //Arrange
             List<Participant> participants = new List<Participant>();
@@ -212,8 +193,40 @@ namespace TournamentPlatform.Test
 
             SingleEliminationSystem system = new SingleEliminationSystem();
 
-            //Act & Assert
-            Assert.Throws<ArgumentException>(() => system.GenerateMatches(participants));
+            //Act
+            var matches = system.GenerateMatches(participants);
+
+            int roundCount = 0;
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].Round == 0)
+                {
+                    roundCount++;
+                }
+            }
+
+            //Assert
+            Assert.Equal(expected, roundCount);
+        }
+
+        [Theory]
+        [InlineData(3, 4)]
+        [InlineData(5, 8)]
+        [InlineData(6, 8)]
+        [InlineData(24, 32)]
+        [InlineData(36, 64)]
+        [InlineData(48, 64)]
+        public void NextPowerOfTwo_Number_ReturnsNextPowerOfTwo(int input, int expected)
+        {
+            //Arrange
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            int result = system.NextPowerOfTwo(input);
+
+            //Assert
+            Assert.Equal(expected, result);
         }
     }
 }

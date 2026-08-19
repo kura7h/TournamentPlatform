@@ -14,7 +14,7 @@ namespace TournamentPlatform.API.Model.Domain
 
             if (!isPowerOfTwo)
             {
-                throw new ArgumentException("Number of participants must be a power of two. This will be implemented in a future version.");
+
             }
 
             for(int i = 0; i < participants.Count; i += 2)
@@ -39,7 +39,7 @@ namespace TournamentPlatform.API.Model.Domain
             return matches;
         }
 
-        public int GetPreviousPowerOfTwo(int number)
+        public int NextPowerOfTwo(int number)
         {
             if (number < 1)
             {
@@ -53,7 +53,7 @@ namespace TournamentPlatform.API.Model.Domain
                 power *= 2;
             }
 
-            return power / 2;
+            return power;
         }
     }
 }
