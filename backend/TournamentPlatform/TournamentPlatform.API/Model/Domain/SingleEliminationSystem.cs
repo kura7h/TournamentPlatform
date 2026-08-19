@@ -14,7 +14,16 @@ namespace TournamentPlatform.API.Model.Domain
 
             if (!isPowerOfTwo)
             {
+                int qualificationParticipants = (participants.Count - NextPowerOfTwo(participants.Count) / 2) * 2;
 
+                for(int i = 0; i < qualificationParticipants; i += 2)
+                {
+                    Match match = new Match(participants[i], participants[i + 1], 0, i / 2 + 1);
+                    matches.Add(match);
+                }
+
+                participants.RemoveRange(0, qualificationParticipants);
+                participants.InsertRange(0, matches.Select(m => m.Winner).ToList());
             }
 
             for(int i = 0; i < participants.Count; i += 2)

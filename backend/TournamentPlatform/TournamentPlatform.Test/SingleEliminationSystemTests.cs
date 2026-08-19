@@ -176,7 +176,7 @@ namespace TournamentPlatform.Test
 
         [Theory]
         [InlineData(3, 1)]
-        [InlineData(5, 2)]
+        [InlineData(5, 1)]
         [InlineData(6, 2)]
         [InlineData(24, 8)]
         [InlineData(36, 4)]
