@@ -14,7 +14,16 @@ namespace TournamentPlatform.API.Model.Domain
 
             if (!isPowerOfTwo)
             {
-                throw new ArgumentException("Number of participants must be a power of two. This will be implemented in a future version.");
+                int qualificationParticipants = (participants.Count - NextPowerOfTwo(participants.Count) / 2) * 2;
+
+                for(int i = 0; i < qualificationParticipants; i += 2)
+                {
+                    Match match = new Match(participants[i], participants[i + 1], 0, i / 2 + 1);
+                    matches.Add(match);
+                }
+
+                participants.RemoveRange(0, qualificationParticipants);
+                participants.InsertRange(0, matches.Select(m => m.Winner).ToList());
             }
 
             for(int i = 0; i < participants.Count; i += 2)
@@ -37,6 +46,23 @@ namespace TournamentPlatform.API.Model.Domain
             }
 
             return matches;
+        }
+
+        public int NextPowerOfTwo(int number)
+        {
+            if (number < 1)
+            {
+                throw new ArgumentException("Number must be greater than 0.");
+            }
+
+            int power = 1;
+
+            while (power <= number)
+            {
+                power *= 2;
+            }
+
+            return power;
         }
     }
 }

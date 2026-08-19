@@ -35,29 +35,6 @@ namespace TournamentPlatform.Test
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(6)]
-        [InlineData(24)]
-        [InlineData(36)]
-        [InlineData(48)]
-        public void GenerateMatches_NumberOfParticipantsNotPowerOfTwo_ThrowsArgumentException(int input)
-        {
-            //Arrange
-            List<Participant> participants = new List<Participant>();
-
-            for (int i = 0; i < input; i++)
-            {
-                participants.Add(new Participant());
-            }
-
-            SingleEliminationSystem system = new SingleEliminationSystem();
-
-            //Act & Assert
-            Assert.Throws<ArgumentException>(() => system.GenerateMatches(participants));
-        }
-
-        [Theory]
         [InlineData(2, 1)]
         [InlineData(8, 4)]
         [InlineData(16, 8)]
@@ -78,18 +55,18 @@ namespace TournamentPlatform.Test
             //Act
             var matches = system.GenerateMatches(participants);
 
-            int firstRoundCount = 0;
+            int roundCount = 0;
 
             for (int i = 0; i < matches.Count; i++)
             {
                 if (matches[i].Round == 1)
                 {
-                    firstRoundCount++;
+                    roundCount++;
                 }
             }
 
             //Assert
-            Assert.Equal(expected, firstRoundCount);
+            Assert.Equal(expected, roundCount);
         }
 
         [Theory]
@@ -113,18 +90,18 @@ namespace TournamentPlatform.Test
             //Act
             var matches = system.GenerateMatches(participants);
 
-            int firstRoundCount = 0;
+            int roundCount = 0;
 
             for (int i = 0; i < matches.Count; i++)
             {
                 if (matches[i].Round == 2)
                 {
-                    firstRoundCount++;
+                    roundCount++;
                 }
             }
 
             //Assert
-            Assert.Equal(expected, firstRoundCount);
+            Assert.Equal(expected, roundCount);
         }
 
         [Theory]
@@ -148,18 +125,18 @@ namespace TournamentPlatform.Test
             //Act
             var matches = system.GenerateMatches(participants);
 
-            int firstRoundCount = 0;
+            int roundCount = 0;
 
             for (int i = 0; i < matches.Count; i++)
             {
                 if (matches[i].Round == 3)
                 {
-                    firstRoundCount++;
+                    roundCount++;
                 }
             }
 
             //Assert
-            Assert.Equal(expected, firstRoundCount);
+            Assert.Equal(expected, roundCount);
         }
 
         [Theory]
@@ -183,18 +160,73 @@ namespace TournamentPlatform.Test
             //Act
             var matches = system.GenerateMatches(participants);
 
-            int firstRoundCount = 0;
+            int roundCount = 0;
 
             for (int i = 0; i < matches.Count; i++)
             {
                 if (matches[i].Round == 4)
                 {
-                    firstRoundCount++;
+                    roundCount++;
                 }
             }
 
             //Assert
-            Assert.Equal(expected, firstRoundCount);
+            Assert.Equal(expected, roundCount);
+        }
+
+        [Theory]
+        [InlineData(3, 1)]
+        [InlineData(5, 1)]
+        [InlineData(6, 2)]
+        [InlineData(24, 8)]
+        [InlineData(36, 4)]
+        [InlineData(48, 16)]
+        public void GenerateMatches_NumberOfParticipantsNotPowerOfTwoQualificationRound_ReturnsCorrectMatchesAmount(int input, int expected)
+        {
+            //Arrange
+            List<Participant> participants = new List<Participant>();
+
+            for (int i = 0; i < input; i++)
+            {
+                participants.Add(new Participant());
+            }
+
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            var matches = system.GenerateMatches(participants);
+
+            int roundCount = 0;
+
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].Round == 0)
+                {
+                    roundCount++;
+                }
+            }
+
+            //Assert
+            Assert.Equal(expected, roundCount);
+        }
+
+        [Theory]
+        [InlineData(3, 4)]
+        [InlineData(5, 8)]
+        [InlineData(6, 8)]
+        [InlineData(24, 32)]
+        [InlineData(36, 64)]
+        [InlineData(48, 64)]
+        public void NextPowerOfTwo_Number_ReturnsNextPowerOfTwo(int input, int expected)
+        {
+            //Arrange
+            SingleEliminationSystem system = new SingleEliminationSystem();
+
+            //Act
+            int result = system.NextPowerOfTwo(input);
+
+            //Assert
+            Assert.Equal(expected, result);
         }
     }
 }
